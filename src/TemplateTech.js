@@ -46,7 +46,7 @@ function TemplateTech({ data }) {
             </h1>
 
             <div style={{ fontFamily: mono, marginTop: '8px' }}>
-              <span style={{ color: '#6e7681' }}>// </span>
+              <span style={{ color: '#6e7681' }}>{'// '}</span>
               <span style={{ color: '#79c0ff', fontSize: '15px' }}>{data.job || 'Должность'}</span>
             </div>
 
@@ -112,7 +112,7 @@ function TemplateTech({ data }) {
               fontWeight: '700',
               marginBottom: '10px',
             }}>
-              <span style={{ color: '#6e7681' }}>/** </span>ABOUT<span style={{ color: '#6e7681' }}> */</span>
+              <span style={{ color: '#6e7681' }}>{'/** '}</span>ABOUT<span style={{ color: '#6e7681' }}>{' */'}</span>
             </div>
             <p style={{
               fontSize: '14px',
@@ -134,7 +134,7 @@ function TemplateTech({ data }) {
               fontWeight: '700',
               marginBottom: '10px',
             }}>
-              <span style={{ color: '#6e7681' }}>/** </span>EXPERIENCE<span style={{ color: '#6e7681' }}> */</span>
+              <span style={{ color: '#6e7681' }}>{'/** '}</span>EXPERIENCE<span style={{ color: '#6e7681' }}>{' */'}</span>
             </div>
             <p style={{
               fontSize: '14px',
@@ -156,7 +156,7 @@ function TemplateTech({ data }) {
               fontWeight: '700',
               marginBottom: '10px',
             }}>
-              <span style={{ color: '#6e7681' }}>/** </span>EDUCATION<span style={{ color: '#6e7681' }}> */</span>
+              <span style={{ color: '#6e7681' }}>{'/** '}</span>EDUCATION<span style={{ color: '#6e7681' }}>{' */'}</span>
             </div>
             <p style={{
               fontSize: '14px',
