@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import jsPDF from 'jspdf';
@@ -6,13 +6,19 @@ import html2canvas from 'html2canvas';
 import TemplateModern from './TemplateModern';
 import TemplateMinimal from './TemplateMinimal';
 import TemplateClassic from './TemplateClassic';
+import TemplateCreative from './TemplateCreative';
+import TemplateTech from './TemplateTech';
+import TemplateElegant from './TemplateElegant';
 import Splash from './Splash';
 import Landing from './Landing';
 
 const templates = {
-  modern: { name: '✦ Современный', component: TemplateModern },
-  minimal: { name: '◯ Минимал', component: TemplateMinimal },
-  classic: { name: '▣ Классика', component: TemplateClassic },
+  modern:   { name: '✦ Современный', component: TemplateModern },
+  minimal:  { name: '◯ Минимал',     component: TemplateMinimal },
+  classic:  { name: '▣ Классика',    component: TemplateClassic },
+  creative: { name: '◈ Креатив',     component: TemplateCreative },
+  tech:     { name: '</> Тех',        component: TemplateTech },
+  elegant:  { name: '✧ Элегант',     component: TemplateElegant },
 };
 
 const emptyForm = {
@@ -26,13 +32,23 @@ function calcCompletion(data) {
   return Math.round((filled / fields.length) * 100);
 }
 
+function getInitials(name) {
+  if (!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  return parts[0].slice(0, 2).toUpperCase();
+}
+
 function Builder() {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState(() => {
     const saved = localStorage.getItem('cv-data');
     return saved ? JSON.parse(saved) : emptyForm;
   });
+
+  const [photo, setPhoto] = useState('');
 
   const [activeTemplate, setActiveTemplate] = useState(() => {
     return localStorage.getItem('cv-template') || 'modern';
@@ -56,6 +72,14 @@ function Builder() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => setPhoto(ev.target.result);
+    reader.readAsDataURL(file);
+  };
+
   const switchTemplate = (key) => {
     setAnimating(true);
     setTimeout(() => { setActiveTemplate(key); setAnimating(false); }, 300);
@@ -64,6 +88,7 @@ function Builder() {
   const clearData = () => {
     if (window.confirm('Очистить все данные?')) {
       setFormData(emptyForm);
+      setPhoto('');
       localStorage.removeItem('cv-data');
     }
   };
@@ -139,6 +164,44 @@ function Builder() {
           ))}
         </div>
 
+        {/* Фото профиля */}
+        <div className="section-title">Фото профиля</div>
+        <div className="photo-upload-section">
+          <div style={{ position: 'relative', display: 'inline-block' }}>
+            <div className="photo-upload-btn" onClick={() => fileInputRef.current.click()}>
+              {photo ? (
+                <>
+                  <img src={photo} alt="Фото профиля" />
+                  <div className="photo-upload-overlay">📷</div>
+                </>
+              ) : (
+                <>
+                  <span className="photo-initials">
+                    {formData.name ? getInitials(formData.name) : '📷'}
+                  </span>
+                  <div className="photo-upload-overlay">📷</div>
+                </>
+              )}
+            </div>
+            {photo && (
+              <button
+                className="photo-remove-btn"
+                onClick={(e) => { e.stopPropagation(); setPhoto(''); }}
+              >×</button>
+            )}
+          </div>
+          <span className="photo-upload-hint">
+            {photo ? 'Нажми чтобы изменить' : 'Нажми чтобы добавить'}
+          </span>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handlePhotoUpload}
+          />
+        </div>
+
         <div className="section-title">Личные данные</div>
         <input name="name" placeholder="Имя и фамилия" onChange={handleChange} value={formData.name} />
         <input name="job" placeholder="Должность" onChange={handleChange} value={formData.job} />
@@ -164,7 +227,7 @@ function Builder() {
 
       <div className="preview">
         <div className={`preview-sheet ${animating ? '' : 'template-fade'}`}>
-          <ActiveComponent data={formData} />
+          <ActiveComponent data={{ ...formData, photo }} />
         </div>
       </div>
     </div>
