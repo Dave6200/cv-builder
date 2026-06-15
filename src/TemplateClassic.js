@@ -1,3 +1,10 @@
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function getInitials(name) {
   if (!name) return '?';
   const parts = name.trim().split(/\s+/);
@@ -6,13 +13,10 @@ function getInitials(name) {
 }
 
 function TemplateClassic({ data }) {
+  const accent = data.accentColor || '#3498db';
+
   return (
-    <div style={{
-      background: '#fff',
-      height: '100%',
-      fontFamily: 'Inter, sans-serif',
-      display: 'flex',
-    }}>
+    <div style={{ background: '#fff', height: '100%', fontFamily: 'Inter, sans-serif', display: 'flex' }}>
       {/* ЛЕВАЯ КОЛОНКА */}
       <div style={{
         width: '35%',
@@ -24,17 +28,12 @@ function TemplateClassic({ data }) {
       }}>
         {/* Фото / инициалы */}
         <div style={{
-          width: '90px',
-          height: '90px',
-          borderRadius: '50%',
-          overflow: 'hidden',
+          width: '90px', height: '90px', borderRadius: '50%', overflow: 'hidden',
           margin: '0 auto',
-          border: '3px solid rgba(52, 152, 219, 0.4)',
-          background: 'linear-gradient(135deg, #3498db, #2980b9)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 4px 20px rgba(52,152,219,0.3)',
+          border: `3px solid ${hexToRgba(accent, 0.4)}`,
+          background: accent,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: `0 4px 20px ${hexToRgba(accent, 0.3)}`,
           flexShrink: 0,
         }}>
           {data.photo ? (
@@ -49,12 +48,8 @@ function TemplateClassic({ data }) {
         {/* Контакты */}
         <div>
           <h4 style={{
-            color: '#3498db',
-            fontSize: '10px',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            marginBottom: '12px',
-            fontWeight: '700',
+            color: accent, fontSize: '10px', textTransform: 'uppercase',
+            letterSpacing: '2px', marginBottom: '12px', fontWeight: '700',
           }}>Контакты</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {data.email && (
@@ -82,12 +77,8 @@ function TemplateClassic({ data }) {
         {data.skills && (
           <div>
             <h4 style={{
-              color: '#3498db',
-              fontSize: '10px',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: '12px',
-              fontWeight: '700',
+              color: accent, fontSize: '10px', textTransform: 'uppercase',
+              letterSpacing: '2px', marginBottom: '12px', fontWeight: '700',
             }}>Навыки</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {data.skills.split(',').map((skill, i) => (
@@ -97,7 +88,7 @@ function TemplateClassic({ data }) {
                     <div style={{
                       height: '100%',
                       width: `${70 + (i % 3) * 10}%`,
-                      background: 'linear-gradient(90deg, #3498db, #2980b9)',
+                      background: accent,
                       borderRadius: '2px',
                     }} />
                   </div>
@@ -110,42 +101,24 @@ function TemplateClassic({ data }) {
 
       {/* ПРАВАЯ КОЛОНКА */}
       <div style={{ width: '65%', display: 'flex', flexDirection: 'column' }}>
-        {/* Шапка */}
-        <div style={{
-          padding: '40px 36px 28px',
-          borderBottom: '2px solid #f0f0f0',
-        }}>
-          <h1 style={{
-            fontSize: '32px',
-            fontWeight: '700',
-            color: '#2c3e50',
-            letterSpacing: '-0.5px',
-          }}>
+        <div style={{ padding: '40px 36px 28px', borderBottom: '2px solid #f0f0f0' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#2c3e50', letterSpacing: '-0.5px' }}>
             {data.name || 'Твоё имя'}
           </h1>
           <h3 style={{
-            fontSize: '14px',
-            fontWeight: '500',
-            color: '#3498db',
-            marginTop: '6px',
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
+            fontSize: '14px', fontWeight: '500', color: accent,
+            marginTop: '6px', textTransform: 'uppercase', letterSpacing: '1px',
           }}>
             {data.job || 'Должность'}
           </h3>
         </div>
 
-        {/* Тело */}
         <div style={{ padding: '28px 36px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {data.about && (
             <div>
               <h4 style={{
-                fontSize: '10px',
-                textTransform: 'uppercase',
-                letterSpacing: '2px',
-                color: '#3498db',
-                marginBottom: '8px',
-                fontWeight: '700',
+                fontSize: '10px', textTransform: 'uppercase', letterSpacing: '2px',
+                color: accent, marginBottom: '8px', fontWeight: '700',
               }}>О себе</h4>
               <p style={{ fontSize: '13px', color: '#555', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.about}</p>
             </div>
@@ -154,12 +127,8 @@ function TemplateClassic({ data }) {
           {data.experience && (
             <div>
               <h4 style={{
-                fontSize: '10px',
-                textTransform: 'uppercase',
-                letterSpacing: '2px',
-                color: '#3498db',
-                marginBottom: '8px',
-                fontWeight: '700',
+                fontSize: '10px', textTransform: 'uppercase', letterSpacing: '2px',
+                color: accent, marginBottom: '8px', fontWeight: '700',
               }}>Опыт работы</h4>
               <p style={{ fontSize: '13px', color: '#555', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.experience}</p>
             </div>
@@ -168,12 +137,8 @@ function TemplateClassic({ data }) {
           {data.education && (
             <div>
               <h4 style={{
-                fontSize: '10px',
-                textTransform: 'uppercase',
-                letterSpacing: '2px',
-                color: '#3498db',
-                marginBottom: '8px',
-                fontWeight: '700',
+                fontSize: '10px', textTransform: 'uppercase', letterSpacing: '2px',
+                color: accent, marginBottom: '8px', fontWeight: '700',
               }}>Образование</h4>
               <p style={{ fontSize: '13px', color: '#555', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.education}</p>
             </div>

@@ -21,6 +21,8 @@ const templates = {
   elegant:  { name: '✧ Элегант',     component: TemplateElegant },
 };
 
+const ACCENT_COLORS = ['#6c63ff', '#e94560', '#00b4d8', '#06d6a0', '#ff6b4a', '#f4c430'];
+
 const emptyForm = {
   name: '', job: '', email: '', phone: '',
   location: '', about: '', experience: '', education: '', skills: '',
@@ -49,6 +51,7 @@ function Builder() {
   });
 
   const [photo, setPhoto] = useState('');
+  const [accentColor, setAccentColor] = useState('#6c63ff');
 
   const [activeTemplate, setActiveTemplate] = useState(() => {
     return localStorage.getItem('cv-template') || 'modern';
@@ -164,6 +167,23 @@ function Builder() {
           ))}
         </div>
 
+        {/* Акцентный цвет */}
+        <div className="section-title">Акцент</div>
+        <div className="color-picker">
+          {ACCENT_COLORS.map(color => (
+            <button
+              key={color}
+              className="color-circle"
+              onClick={() => setAccentColor(color)}
+              style={{
+                background: color,
+                transform: accentColor === color ? 'scale(1.2)' : 'scale(1)',
+                boxShadow: accentColor === color ? `0 0 0 2px #0f0f13, 0 0 0 4px ${color}` : 'none',
+              }}
+            />
+          ))}
+        </div>
+
         {/* Фото профиля */}
         <div className="section-title">Фото профиля</div>
         <div className="photo-upload-section">
@@ -227,7 +247,7 @@ function Builder() {
 
       <div className="preview">
         <div className={`preview-sheet ${animating ? '' : 'template-fade'}`}>
-          <ActiveComponent data={{ ...formData, photo }} />
+          <ActiveComponent data={{ ...formData, photo, accentColor }} />
         </div>
       </div>
     </div>

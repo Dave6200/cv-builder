@@ -139,6 +139,25 @@
   box-shadow: 0 0 8px rgba(108, 99, 255, 0.5);
 }
 
+.color-picker {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.color-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  flex-shrink: 0;
+}
+
 .photo-upload-section {
   display: flex;
   flex-direction: column;

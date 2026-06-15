@@ -1,3 +1,10 @@
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function getInitials(name) {
   if (!name) return '?';
   const parts = name.trim().split(/\s+/);
@@ -6,12 +13,21 @@ function getInitials(name) {
 }
 
 function TemplateModern({ data }) {
-  return (
+  const accent = data.accentColor || '#6c63ff';
+
+  const sectionHeader = (label) => (
     <div style={{
-      background: '#fff',
-      height: '100%',
-      fontFamily: 'Inter, sans-serif',
+      fontSize: '10px', textTransform: 'uppercase', letterSpacing: '3px',
+      color: accent, fontWeight: '700', marginBottom: '10px',
+      display: 'flex', alignItems: 'center', gap: '8px',
     }}>
+      <div style={{ width: '20px', height: '2px', background: accent }} />
+      {label}
+    </div>
+  );
+
+  return (
+    <div style={{ background: '#fff', height: '100%', fontFamily: 'Inter, sans-serif' }}>
       {/* ШАПКА */}
       <div style={{
         background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
@@ -19,49 +35,23 @@ function TemplateModern({ data }) {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Декоративные круги */}
         <div style={{
-          position: 'absolute',
-          top: '-40px',
-          right: '-40px',
-          width: '180px',
-          height: '180px',
-          borderRadius: '50%',
-          background: 'rgba(108, 99, 255, 0.15)',
+          position: 'absolute', top: '-40px', right: '-40px',
+          width: '180px', height: '180px', borderRadius: '50%',
+          background: hexToRgba(accent, 0.15),
         }} />
         <div style={{
-          position: 'absolute',
-          bottom: '-20px',
-          right: '80px',
-          width: '80px',
-          height: '80px',
-          borderRadius: '50%',
-          background: 'rgba(108, 99, 255, 0.1)',
+          position: 'absolute', bottom: '-20px', right: '80px',
+          width: '80px', height: '80px', borderRadius: '50%',
+          background: hexToRgba(accent, 0.1),
         }} />
 
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          {/* Текст */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 1 }}>
           <div>
-            <h1 style={{
-              color: '#fff',
-              fontSize: '36px',
-              fontWeight: '700',
-              letterSpacing: '-1px',
-            }}>
+            <h1 style={{ color: '#fff', fontSize: '36px', fontWeight: '700', letterSpacing: '-1px' }}>
               {data.name || 'Твоё имя'}
             </h1>
-            <h3 style={{
-              color: '#6c63ff',
-              fontSize: '16px',
-              fontWeight: '400',
-              marginTop: '6px',
-            }}>
+            <h3 style={{ color: accent, fontSize: '16px', fontWeight: '400', marginTop: '6px' }}>
               {data.job || 'Должность'}
             </h3>
             <div style={{ display: 'flex', gap: '20px', marginTop: '16px', flexWrap: 'wrap' }}>
@@ -71,23 +61,16 @@ function TemplateModern({ data }) {
             </div>
           </div>
 
-          {/* Фото / инициалы */}
           <div style={{
-            width: '90px',
-            height: '90px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            flexShrink: 0,
-            border: '3px solid rgba(108, 99, 255, 0.5)',
-            background: 'rgba(108, 99, 255, 0.15)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            width: '90px', height: '90px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0,
+            border: `3px solid ${hexToRgba(accent, 0.5)}`,
+            background: hexToRgba(accent, 0.15),
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
             {data.photo ? (
               <img src={data.photo} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              <span style={{ fontSize: '28px', fontWeight: '700', color: '#6c63ff', letterSpacing: '-1px' }}>
+              <span style={{ fontSize: '28px', fontWeight: '700', color: accent, letterSpacing: '-1px' }}>
                 {getInitials(data.name)}
               </span>
             )}
@@ -99,84 +82,32 @@ function TemplateModern({ data }) {
       <div style={{ padding: '36px 48px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {data.about && (
           <div>
-            <div style={{
-              fontSize: '10px',
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#6c63ff',
-              fontWeight: '700',
-              marginBottom: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}>
-              <div style={{ width: '20px', height: '2px', background: '#6c63ff' }} />
-              О себе
-            </div>
+            {sectionHeader('О себе')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.about}</p>
           </div>
         )}
 
         {data.experience && (
           <div>
-            <div style={{
-              fontSize: '10px',
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#6c63ff',
-              fontWeight: '700',
-              marginBottom: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}>
-              <div style={{ width: '20px', height: '2px', background: '#6c63ff' }} />
-              Опыт работы
-            </div>
+            {sectionHeader('Опыт работы')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.experience}</p>
           </div>
         )}
 
         {data.education && (
           <div>
-            <div style={{
-              fontSize: '10px',
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#6c63ff',
-              fontWeight: '700',
-              marginBottom: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}>
-              <div style={{ width: '20px', height: '2px', background: '#6c63ff' }} />
-              Образование
-            </div>
+            {sectionHeader('Образование')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.education}</p>
           </div>
         )}
 
         {data.skills && (
           <div>
-            <div style={{
-              fontSize: '10px',
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#6c63ff',
-              fontWeight: '700',
-              marginBottom: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}>
-              <div style={{ width: '20px', height: '2px', background: '#6c63ff' }} />
-              Навыки
-            </div>
+            {sectionHeader('Навыки')}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {data.skills.split(',').map((skill, i) => (
                 <span key={i} style={{
-                  background: 'linear-gradient(135deg, #6c63ff, #9c63ff)',
+                  background: accent,
                   color: '#fff',
                   padding: '5px 14px',
                   borderRadius: '6px',
