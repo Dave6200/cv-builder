@@ -29,7 +29,7 @@ function TemplateCreative({ data }) {
   return (
     <div style={{ background: '#fff', height: '100%', fontFamily: 'Inter, sans-serif', display: 'flex' }}>
 
-      {/* ЛЕВАЯ КОЛОНКА */}
+      {/* LEFT COLUMN */}
       <div style={{
         width: '38%',
         background: accent,
@@ -50,7 +50,7 @@ function TemplateCreative({ data }) {
           background: 'rgba(255,255,255,0.06)',
         }} />
 
-        {/* Фото */}
+        {/* Photo */}
         <div style={{
           width: '100px', height: '100px', borderRadius: '50%', overflow: 'hidden',
           border: '4px solid rgba(255,255,255,0.4)',
@@ -72,7 +72,7 @@ function TemplateCreative({ data }) {
           lineHeight: '1.15', letterSpacing: '-0.5px', marginBottom: '8px',
           position: 'relative', zIndex: 1,
         }}>
-          {data.name || 'Твоё имя'}
+          {data.name || 'Your Name'}
         </h1>
 
         <div style={{ width: '40px', height: '3px', background: 'rgba(255,255,255,0.5)', borderRadius: '2px', marginBottom: '8px' }} />
@@ -82,10 +82,10 @@ function TemplateCreative({ data }) {
           textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '32px',
           position: 'relative', zIndex: 1,
         }}>
-          {data.job || 'Должность'}
+          {data.job || 'Job Title'}
         </h3>
 
-        {/* Контакты */}
+        {/* Contacts */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px', position: 'relative', zIndex: 1 }}>
           {data.email && (
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
@@ -107,13 +107,13 @@ function TemplateCreative({ data }) {
           )}
         </div>
 
-        {/* Навыки */}
+        {/* Skills */}
         {data.skills && (
           <div style={{ position: 'relative', zIndex: 1 }}>
             <h4 style={{
               color: 'rgba(255,255,255,0.6)', fontSize: '10px', textTransform: 'uppercase',
               letterSpacing: '2px', fontWeight: '700', marginBottom: '12px',
-            }}>Навыки</h4>
+            }}>Skills</h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
               {data.skills.split(',').map((skill, i) => (
                 <span key={i} style={{
@@ -128,25 +128,25 @@ function TemplateCreative({ data }) {
         )}
       </div>
 
-      {/* ПРАВАЯ КОЛОНКА */}
+      {/* RIGHT COLUMN */}
       <div style={{ width: '62%', padding: '48px 36px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
         {data.about && (
           <div>
-            {sectionHeading('О себе')}
+            {sectionHeading('About')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.about}</p>
           </div>
         )}
 
         {data.experience && (
           <div>
-            {sectionHeading('Опыт работы')}
+            {sectionHeading('Experience')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.experience}</p>
           </div>
         )}
 
         {data.education && (
           <div>
-            {sectionHeading('Образование')}
+            {sectionHeading('Education')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.education}</p>
           </div>
         )}

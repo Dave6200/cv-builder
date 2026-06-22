@@ -19,9 +19,9 @@ function TemplateTech({ data }) {
   return (
     <div style={{ background: '#fff', height: '100%', fontFamily: 'Inter, sans-serif' }}>
 
-      {/* ШАПКА — тёмный терминал */}
+      {/* HEADER — dark terminal */}
       <div style={{ background: '#0d1117', padding: '32px 48px 36px' }}>
-        {/* Кнопки терминала */}
+        {/* Terminal buttons */}
         <div style={{ display: 'flex', gap: '6px', marginBottom: '20px' }}>
           <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f57' }} />
           <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#febc2e' }} />
@@ -40,12 +40,12 @@ function TemplateTech({ data }) {
               fontFamily: mono, color: accent, fontSize: '30px',
               fontWeight: '700', letterSpacing: '-1px', lineHeight: '1',
             }}>
-              {data.name ? `"${data.name}"` : '"Твоё имя"'}
+              {data.name ? `"${data.name}"` : '"Your Name"'}
             </h1>
 
             <div style={{ fontFamily: mono, marginTop: '8px' }}>
               <span style={{ color: '#6e7681' }}>{'// '}</span>
-              <span style={{ color: '#79c0ff', fontSize: '15px' }}>{data.job || 'Должность'}</span>
+              <span style={{ color: '#79c0ff', fontSize: '15px' }}>{data.job || 'Job Title'}</span>
             </div>
 
             <div style={{ display: 'flex', gap: '16px', marginTop: '14px', flexWrap: 'wrap' }}>
@@ -73,7 +73,7 @@ function TemplateTech({ data }) {
             </div>
           </div>
 
-          {/* Фото */}
+          {/* Photo */}
           <div style={{
             width: '88px', height: '88px', borderRadius: '8px', overflow: 'hidden',
             border: `2px solid ${accent}`,
@@ -93,7 +93,7 @@ function TemplateTech({ data }) {
         </div>
       </div>
 
-      {/* ТЕЛО */}
+      {/* BODY */}
       <div style={{ padding: '32px 48px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {data.about && (
           <div>

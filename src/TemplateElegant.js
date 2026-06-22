@@ -31,9 +31,9 @@ function TemplateElegant({ data }) {
   return (
     <div style={{ background: '#FAFAF8', height: '100%', fontFamily: 'Georgia, serif' }}>
 
-      {/* ШАПКА */}
+      {/* HEADER */}
       <div style={{ padding: '48px 64px 32px', textAlign: 'center', borderBottom: `1px solid ${accent}` }}>
-        {/* Фото */}
+        {/* Photo */}
         <div style={{
           width: '88px', height: '88px', borderRadius: '50%', overflow: 'hidden',
           border: `2px solid ${accent}`,
@@ -50,7 +50,7 @@ function TemplateElegant({ data }) {
           )}
         </div>
 
-        {/* Декоративные линии */}
+        {/* Decorative lines */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '14px' }}>
           <div style={{ width: '56px', height: '1px', background: accent }} />
           <span style={{ color: accent, fontSize: '8px', letterSpacing: '2px' }}>✦</span>
@@ -61,7 +61,7 @@ function TemplateElegant({ data }) {
           fontSize: '36px', fontWeight: '400', color: '#1a1a1a',
           letterSpacing: '6px', textTransform: 'uppercase', lineHeight: '1', marginBottom: '10px',
         }}>
-          {data.name || 'Твоё имя'}
+          {data.name || 'Your Name'}
         </h1>
 
         <h3 style={{
@@ -69,7 +69,7 @@ function TemplateElegant({ data }) {
           letterSpacing: '3px', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '20px',
         }}>
-          {data.job || 'Должность'}
+          {data.job || 'Job Title'}
         </h3>
 
         {contacts.length > 0 && (
@@ -86,32 +86,32 @@ function TemplateElegant({ data }) {
         )}
       </div>
 
-      {/* ТЕЛО */}
+      {/* BODY */}
       <div style={{ padding: '32px 64px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {data.about && (
           <div>
-            {sectionLabel('О себе')}
+            {sectionLabel('About')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.9', textAlign: 'center', whiteSpace: 'pre-wrap' }}>{data.about}</p>
           </div>
         )}
 
         {data.experience && (
           <div>
-            {sectionLabel('Опыт работы')}
+            {sectionLabel('Experience')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.9', whiteSpace: 'pre-wrap' }}>{data.experience}</p>
           </div>
         )}
 
         {data.education && (
           <div>
-            {sectionLabel('Образование')}
+            {sectionLabel('Education')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.9', whiteSpace: 'pre-wrap' }}>{data.education}</p>
           </div>
         )}
 
         {data.skills && (
           <div>
-            {sectionLabel('Навыки')}
+            {sectionLabel('Skills')}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
               {data.skills.split(',').map((skill, i) => (
                 <span key={i} style={{

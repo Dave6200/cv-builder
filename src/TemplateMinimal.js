@@ -20,17 +20,17 @@ function TemplateMinimal({ data }) {
 
   return (
     <div style={{ background: '#fff', height: '100%', fontFamily: 'Georgia, serif', padding: '56px 64px' }}>
-      {/* ШАПКА */}
+      {/* HEADER */}
       <div style={{ marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ flex: 1 }}>
           <h1 style={{ fontSize: '42px', fontWeight: '400', color: '#111', letterSpacing: '-1.5px', lineHeight: '1' }}>
-            {data.name || 'Твоё имя'}
+            {data.name || 'Your Name'}
           </h1>
           <h3 style={{
             fontSize: '15px', fontWeight: '400', color: '#888', marginTop: '8px',
             letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif',
           }}>
-            {data.job || 'Должность'}
+            {data.job || 'Job Title'}
           </h3>
           <div style={{
             display: 'flex', gap: '24px', marginTop: '16px', flexWrap: 'wrap',
@@ -59,32 +59,32 @@ function TemplateMinimal({ data }) {
         </div>
       </div>
 
-      {/* ТЕЛО */}
+      {/* BODY */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
         {data.about && (
           <div>
-            <h4 style={labelStyle}>О себе</h4>
+            <h4 style={labelStyle}>About</h4>
             <p style={{ fontSize: '15px', color: '#333', lineHeight: '1.8', whiteSpace: 'pre-wrap' }}>{data.about}</p>
           </div>
         )}
 
         {data.experience && (
           <div>
-            <h4 style={labelStyle}>Опыт работы</h4>
+            <h4 style={labelStyle}>Experience</h4>
             <p style={{ fontSize: '15px', color: '#333', lineHeight: '1.8', whiteSpace: 'pre-wrap' }}>{data.experience}</p>
           </div>
         )}
 
         {data.education && (
           <div>
-            <h4 style={labelStyle}>Образование</h4>
+            <h4 style={labelStyle}>Education</h4>
             <p style={{ fontSize: '15px', color: '#333', lineHeight: '1.8', whiteSpace: 'pre-wrap' }}>{data.education}</p>
           </div>
         )}
 
         {data.skills && (
           <div>
-            <h4 style={labelStyle}>Навыки</h4>
+            <h4 style={labelStyle}>Skills</h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {data.skills.split(',').map((skill, i) => (
                 <span key={i} style={{

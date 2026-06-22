@@ -51,11 +51,11 @@ function Splash({ onFinish }) {
         }
 
         @keyframes letterGlow {
-          0%, 100% { 
+          0%, 100% {
             text-shadow: 0 0 30px rgba(108,99,255,0.3);
             transform: scale(1);
           }
-          50% { 
+          50% {
             text-shadow: 0 0 60px rgba(108,99,255,0.8), 0 0 100px rgba(156,99,255,0.4);
             transform: scale(1.03);
           }
@@ -74,7 +74,7 @@ function Splash({ onFinish }) {
 
       <div style={{ position: 'relative', width: '140px', height: '140px' }}>
 
-        {/* Внешнее вращающееся кольцо */}
+        {/* Outer rotating ring */}
         <div style={{
           position: 'absolute',
           inset: '-16px',
@@ -83,7 +83,7 @@ function Splash({ onFinish }) {
           animation: 'ringRotate 8s linear infinite',
         }} />
 
-        {/* Внутреннее кольцо */}
+        {/* Inner ring */}
         <div style={{
           position: 'absolute',
           inset: '-4px',
@@ -91,7 +91,7 @@ function Splash({ onFinish }) {
           border: '1px solid rgba(108,99,255,0.12)',
         }} />
 
-        {/* Буква D */}
+        {/* Letter D */}
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -116,7 +116,7 @@ function Splash({ onFinish }) {
           </span>
         </div>
 
-        {/* Воздушный шарик — крутится */}
+        {/* Balloon — orbiting */}
         {phase === 'spin' && (
           <div style={{
             position: 'absolute',
@@ -127,7 +127,7 @@ function Splash({ onFinish }) {
             justifyContent: 'center',
           }}>
             <div style={{ position: 'relative' }}>
-              {/* Тело шарика */}
+              {/* Balloon body */}
               <div style={{
                 width: '18px',
                 height: '22px',
@@ -136,7 +136,7 @@ function Splash({ onFinish }) {
                 boxShadow: '0 0 16px rgba(108,99,255,0.8), inset -3px -3px 6px rgba(0,0,0,0.3)',
                 position: 'relative',
               }}>
-                {/* Блик */}
+                {/* Highlight */}
                 <div style={{
                   position: 'absolute',
                   top: '4px',
@@ -147,7 +147,7 @@ function Splash({ onFinish }) {
                   background: 'rgba(255,255,255,0.6)',
                 }} />
               </div>
-              {/* Хвостик шарика */}
+              {/* Balloon string */}
               <div style={{
                 width: '1px',
                 height: '8px',
@@ -158,10 +158,10 @@ function Splash({ onFinish }) {
           </div>
         )}
 
-        {/* Взрыв шарика */}
+        {/* Balloon burst */}
         {phase === 'burst' && (
           <>
-            {/* Дым */}
+            {/* Smoke */}
             <div style={{
               position: 'absolute',
               inset: 0,
@@ -178,7 +178,7 @@ function Splash({ onFinish }) {
               }} />
             </div>
 
-            {/* Осколки */}
+            {/* Fragments */}
             {[0, 40, 80, 120, 160, 200, 240, 280, 320].map((angle, i) => (
               <div key={i} style={{
                 position: 'absolute',
@@ -206,7 +206,7 @@ function Splash({ onFinish }) {
         )}
       </div>
 
-      {/* Подпись */}
+      {/* Tagline */}
       <div style={{
         position: 'absolute',
         marginTop: '200px',

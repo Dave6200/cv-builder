@@ -28,7 +28,7 @@ function TemplateModern({ data }) {
 
   return (
     <div style={{ background: '#fff', height: '100%', fontFamily: 'Inter, sans-serif' }}>
-      {/* ШАПКА */}
+      {/* HEADER */}
       <div style={{
         background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
         padding: '40px 48px',
@@ -49,10 +49,10 @@ function TemplateModern({ data }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 1 }}>
           <div>
             <h1 style={{ color: '#fff', fontSize: '36px', fontWeight: '700', letterSpacing: '-1px' }}>
-              {data.name || 'Твоё имя'}
+              {data.name || 'Your Name'}
             </h1>
             <h3 style={{ color: accent, fontSize: '16px', fontWeight: '400', marginTop: '6px' }}>
-              {data.job || 'Должность'}
+              {data.job || 'Job Title'}
             </h3>
             <div style={{ display: 'flex', gap: '20px', marginTop: '16px', flexWrap: 'wrap' }}>
               {data.email && <span style={{ color: '#a0a0c0', fontSize: '12px' }}>✉ {data.email}</span>}
@@ -78,32 +78,32 @@ function TemplateModern({ data }) {
         </div>
       </div>
 
-      {/* ТЕЛО */}
+      {/* BODY */}
       <div style={{ padding: '36px 48px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {data.about && (
           <div>
-            {sectionHeader('О себе')}
+            {sectionHeader('About')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.about}</p>
           </div>
         )}
 
         {data.experience && (
           <div>
-            {sectionHeader('Опыт работы')}
+            {sectionHeader('Experience')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.experience}</p>
           </div>
         )}
 
         {data.education && (
           <div>
-            {sectionHeader('Образование')}
+            {sectionHeader('Education')}
             <p style={{ fontSize: '14px', color: '#444', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{data.education}</p>
           </div>
         )}
 
         {data.skills && (
           <div>
-            {sectionHeader('Навыки')}
+            {sectionHeader('Skills')}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {data.skills.split(',').map((skill, i) => (
                 <span key={i} style={{

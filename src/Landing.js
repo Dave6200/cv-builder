@@ -88,7 +88,7 @@ function Landing() {
         }
       `}</style>
 
-      {/* Фоновые орбы */}
+      {/* Background orbs */}
       <div style={{
         position: 'fixed', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0,
       }}>
@@ -106,7 +106,7 @@ function Landing() {
         }} />
       </div>
 
-      {/* НАВБАР */}
+      {/* NAVBAR */}
       <nav style={{
         position: 'relative', zIndex: 10,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -149,7 +149,7 @@ function Landing() {
             e.target.style.borderColor = 'rgba(108,99,255,0.4)';
           }}
         >
-          Открыть редактор →
+          Open editor →
         </button>
       </nav>
 
@@ -173,7 +173,7 @@ function Landing() {
           marginBottom: '24px',
           animation: 'fadeUp 0.5s ease both',
         }}>
-          ✦ Бесплатно — без регистрации
+          ✦ Free — no sign-up required
         </div>
 
         <h1 style={{
@@ -187,7 +187,7 @@ function Landing() {
           animation: 'fadeUp 0.6s ease 0.1s both',
           fontFamily: '"Playfair Display", serif',
         }}>
-          Резюме которое{' '}
+          The resume that{' '}
           <span style={{
             background: 'linear-gradient(135deg, #a78bfa, #6c63ff, #9c63ff)',
             backgroundSize: '200% 200%',
@@ -196,7 +196,7 @@ function Landing() {
             backgroundClip: 'text',
             animation: 'gradientShift 3s ease infinite',
           }}>
-            замечают
+            gets noticed
           </span>
         </h1>
 
@@ -209,8 +209,8 @@ function Landing() {
           animation: 'fadeUp 0.6s ease 0.2s both',
           fontWeight: '400',
         }}>
-          Создай профессиональное резюме за 5 минут.
-          Выбери шаблон, заполни данные — скачай PDF.
+          Create a professional resume in 5 minutes.
+          Choose a template, fill in your details — download PDF.
         </p>
 
         <div style={{
@@ -218,14 +218,14 @@ function Landing() {
           animation: 'fadeUp 0.6s ease 0.3s both',
         }}>
           <button className="hero-btn" onClick={() => navigate('/builder')}>
-            Создать резюме бесплатно →
+            Create your resume for free →
           </button>
           <span style={{ color: '#3a3a5a', fontSize: '13px' }}>
-            Уже 1,200+ резюме создано
+            1,200+ resumes created
           </span>
         </div>
 
-        {/* Превью карточки */}
+        {/* Editor preview card */}
         <div style={{
           marginTop: '80px',
           width: '100%', maxWidth: '700px',
@@ -236,14 +236,14 @@ function Landing() {
           animation: 'float 4s ease-in-out infinite, fadeUp 0.8s ease 0.4s both',
           boxShadow: '0 40px 80px rgba(0,0,0,0.4)',
         }}>
-          {/* Мок редактора */}
+          {/* Editor mock */}
           <div style={{ display: 'flex', gap: '16px', height: '200px' }}>
             <div style={{
               width: '40%', background: '#0f0f13',
               borderRadius: '12px', padding: '16px',
               display: 'flex', flexDirection: 'column', gap: '8px',
             }}>
-              {['Имя и фамилия', 'Должность', 'Email', 'Навыки'].map((p, i) => (
+              {['Full name', 'Job title', 'Email', 'Skills'].map((p, i) => (
                 <div key={i} style={{
                   height: '28px', background: '#16161f',
                   borderRadius: '6px', border: '1px solid #1e1e2e',
@@ -279,7 +279,7 @@ function Landing() {
         </div>
       </section>
 
-      {/* ФИЧИ */}
+      {/* FEATURES */}
       <section style={{
         position: 'relative', zIndex: 1,
         padding: '60px 60px 80px',
@@ -290,7 +290,7 @@ function Landing() {
           marginBottom: '48px', letterSpacing: '-0.5px',
           fontFamily: '"Playfair Display", serif',
         }}>
-          Почему выбирают нас
+          Why choose us
         </h2>
 
         <div style={{
@@ -299,12 +299,12 @@ function Landing() {
           gap: '20px', maxWidth: '900px', margin: '0 auto',
         }}>
           {[
-            { icon: '⚡', title: 'Быстро', desc: 'Заполни форму и получи готовое резюме за 5 минут' },
-            { icon: '🎨', title: '3 шаблона', desc: 'Современный, минималистичный и классический дизайн' },
-            { icon: '📄', title: 'PDF экспорт', desc: 'Скачай резюме в формате PDF одним кликом' },
-            { icon: '💾', title: 'Автосохранение', desc: 'Данные сохраняются автоматически в браузере' },
-            { icon: '🆓', title: 'Бесплатно', desc: 'Без регистрации, без подписки, без ограничений' },
-            { icon: '✨', title: 'Живой Preview', desc: 'Видишь результат в реальном времени пока пишешь' },
+            { icon: '⚡', title: 'Fast',          desc: 'Fill in the form and get a finished resume in 5 minutes' },
+            { icon: '🎨', title: '6 templates',   desc: 'Modern, minimal, classic, creative, tech, and elegant designs' },
+            { icon: '📄', title: 'PDF export',    desc: 'Download your resume as a PDF with one click' },
+            { icon: '💾', title: 'Auto-save',     desc: 'Your data is saved automatically in the browser' },
+            { icon: '🆓', title: 'Free',          desc: 'No registration, no subscription, no limits' },
+            { icon: '✨', title: 'Live preview',  desc: 'See your resume update in real time as you type' },
           ].map((f, i) => (
             <div key={i} className="feature-card" style={{ animationDelay: `${i * 0.1}s` }}>
               <div style={{ fontSize: '28px', marginBottom: '12px' }}>{f.icon}</div>
@@ -333,13 +333,13 @@ function Landing() {
             marginBottom: '16px', letterSpacing: '-0.5px',
             fontFamily: '"Playfair Display", serif',
           }}>
-            Готов создать резюме?
+            Ready to build your resume?
           </h2>
           <p style={{ color: '#6b6b8a', fontSize: '16px', marginBottom: '32px', lineHeight: '1.6' }}>
-            Займёт не больше 5 минут. Никакой регистрации.
+            Takes less than 5 minutes. No registration needed.
           </p>
           <button className="hero-btn" onClick={() => navigate('/builder')}>
-            Начать сейчас — это бесплатно →
+            Start now — it's free →
           </button>
         </div>
       </section>
