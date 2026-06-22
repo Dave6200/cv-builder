@@ -59,6 +59,7 @@ function Builder() {
 
   const [animating, setAnimating] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('cv-data', JSON.stringify(formData));
@@ -97,6 +98,8 @@ function Builder() {
   };
 
   const downloadPDF = () => {
+    if (pdfLoading) return;
+    setPdfLoading(true);
     const sheet = document.querySelector('.preview-sheet');
     html2canvas(sheet, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
@@ -105,6 +108,7 @@ function Builder() {
       const height = pdf.internal.pageSize.getHeight();
       pdf.addImage(imgData, 'PNG', 0, 0, width, height);
       pdf.save('resume.pdf');
+      setPdfLoading(false);
     });
   };
 
@@ -241,7 +245,13 @@ function Builder() {
         <div className="section-title">Skills</div>
         <input name="skills" placeholder="React, JavaScript, CSS..." onChange={handleChange} value={formData.skills} />
 
-        <button className="download-btn" onClick={downloadPDF}>⬇ Download PDF</button>
+        <button
+          className={`download-btn${pdfLoading ? ' loading' : ''}`}
+          onClick={downloadPDF}
+          disabled={pdfLoading}
+        >
+          {pdfLoading ? '⏳ Generating...' : '⬇ Download PDF'}
+        </button>
         <button className="clear-btn" onClick={clearData}>🗑 Clear</button>
       </div>
 
