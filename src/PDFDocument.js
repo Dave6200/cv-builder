@@ -1,5 +1,5 @@
 import React from 'react';
-import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 
 const s = StyleSheet.create({
   page: {
@@ -9,8 +9,15 @@ const s = StyleSheet.create({
     paddingBottom: 50,
     paddingHorizontal: 54,
   },
-  header: {
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     marginBottom: 22,
+  },
+  headerLeft: {
+    flex: 1,
+    paddingRight: 16,
   },
   name: {
     fontSize: 30,
@@ -35,6 +42,11 @@ const s = StyleSheet.create({
     fontSize: 10,
     color: '#bbbbcc',
     marginHorizontal: 6,
+  },
+  photo: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
   divider: {
     height: 2,
@@ -111,7 +123,6 @@ export default function PDFDocument({ data }) {
 
   const contacts = [data.email, data.phone, data.location].filter(Boolean);
 
-  // Experience: each line supports "Title | date" format
   const expEntries = data.experience
     ? data.experience.split('\n').filter(l => l.trim()).map(line => {
         const idx = line.lastIndexOf(' | ');
@@ -121,7 +132,6 @@ export default function PDFDocument({ data }) {
       })
     : [];
 
-  // Education: every 3 lines = degree / school / year
   const eduLines = data.education ? data.education.split('\n').filter(l => l.trim()) : [];
   const eduGroups = [];
   for (let i = 0; i < eduLines.length; i += 3) {
@@ -137,22 +147,27 @@ export default function PDFDocument({ data }) {
       <Page size="A4" style={s.page}>
 
         {/* ── Header ── */}
-        <View style={s.header}>
-          {data.name && (
-            <Text style={s.name}>{data.name}</Text>
-          )}
-          {data.job && (
-            <Text style={[s.job, { color: accent }]}>{data.job}</Text>
-          )}
-          {contacts.length > 0 && (
-            <View style={s.contactRow}>
-              {contacts.map((c, i) => (
-                <React.Fragment key={i}>
-                  {i > 0 && <Text style={s.contactDot}>·</Text>}
-                  <Text style={s.contactItem}>{c}</Text>
-                </React.Fragment>
-              ))}
-            </View>
+        <View style={s.headerRow}>
+          <View style={s.headerLeft}>
+            {data.name && <Text style={s.name}>{data.name}</Text>}
+            {data.job && <Text style={[s.job, { color: accent }]}>{data.job}</Text>}
+            {contacts.length > 0 && (
+              <View style={s.contactRow}>
+                {contacts.map((c, i) => (
+                  <React.Fragment key={i}>
+                    {i > 0 && <Text style={s.contactDot}>·</Text>}
+                    <Text style={s.contactItem}>{c}</Text>
+                  </React.Fragment>
+                ))}
+              </View>
+            )}
+          </View>
+
+          {data.photo && (
+            <Image
+              src={data.photo}
+              style={[s.photo, { borderWidth: 2, borderColor: accent, borderStyle: 'solid' }]}
+            />
           )}
         </View>
 
@@ -172,11 +187,9 @@ export default function PDFDocument({ data }) {
           <View style={s.section}>
             <Text style={[s.sectionTitle, { color: accent }]}>EXPERIENCE</Text>
             {expEntries.map((entry, i) => (
-              <View key={i} style={[s.expEntry, { borderLeftColor: accent + '33' }]}>
+              <View key={i} style={[s.expEntry, { borderLeftColor: accent + '55' }]}>
                 <Text style={s.expBody}>{entry.body}</Text>
-                {entry.date && (
-                  <Text style={s.expDate}>{entry.date}</Text>
-                )}
+                {entry.date && <Text style={s.expDate}>{entry.date}</Text>}
               </View>
             ))}
           </View>
@@ -202,7 +215,7 @@ export default function PDFDocument({ data }) {
             <Text style={[s.sectionTitle, { color: accent }]}>SKILLS</Text>
             <View style={s.skillsRow}>
               {skills.map((skill, i) => (
-                <View key={i} style={[s.skillTag, { borderColor: accent + '44' }]}>
+                <View key={i} style={[s.skillTag, { borderColor: accent + '55' }]}>
                   <Text style={[s.skillText, { color: '#2d2d44' }]}>{skill}</Text>
                 </View>
               ))}
