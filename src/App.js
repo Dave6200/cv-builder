@@ -54,13 +54,12 @@ function Builder() {
 
   const [photo, setPhoto] = useState('');
   const [accentColor, setAccentColor] = useState('#6c63ff');
-
   const [activeTemplate, setActiveTemplate] = useState(() => {
     return localStorage.getItem('cv-template') || 'modern';
   });
-
   const [animating, setAnimating] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [mobileView, setMobileView] = useState('form'); // 'form' | 'preview'
 
   useEffect(() => {
     localStorage.setItem('cv-data', JSON.stringify(formData));
@@ -104,9 +103,10 @@ function Builder() {
 
   return (
     <div className="container">
-      <div className="form">
 
-        {/* Header with back button */}
+      {/* ── FORM ── */}
+      <div className={`form${mobileView === 'preview' ? ' mobile-hidden' : ''}`}>
+
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
           <button
             onClick={() => navigate('/')}
@@ -131,7 +131,6 @@ function Builder() {
           </h2>
         </div>
 
-        {/* Progress bar */}
         <div className="progress-wrap">
           <div className="progress-header">
             <span className="progress-label">Resume completion</span>
@@ -142,7 +141,12 @@ function Builder() {
           <div className="progress-track">
             <div
               className="progress-fill"
-              style={{ width: `${completion}%`, background: completion === 100 ? 'linear-gradient(90deg, #6c63ff, #4ade80)' : 'linear-gradient(90deg, #6c63ff, #9c63ff)' }}
+              style={{
+                width: `${completion}%`,
+                background: completion === 100
+                  ? 'linear-gradient(90deg, #6c63ff, #4ade80)'
+                  : 'linear-gradient(90deg, #6c63ff, #9c63ff)',
+              }}
             />
           </div>
         </div>
@@ -158,7 +162,6 @@ function Builder() {
           ))}
         </div>
 
-        {/* Accent color */}
         <div className="section-title">Accent</div>
         <div className="color-picker">
           {ACCENT_COLORS.map(color => (
@@ -175,7 +178,6 @@ function Builder() {
           ))}
         </div>
 
-        {/* Profile photo */}
         <div className="section-title">Profile Photo</div>
         <div className="photo-upload-section">
           <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -232,6 +234,11 @@ function Builder() {
         <div className="section-title">Skills</div>
         <input name="skills" placeholder="React, JavaScript, CSS..." onChange={handleChange} value={formData.skills} />
 
+        {/* Mobile-only: open preview */}
+        <button className="mobile-preview-btn" onClick={() => setMobileView('preview')}>
+          👁 Preview Resume
+        </button>
+
         <PDFDownloadLink
           document={<PDFDocument data={pdfData} />}
           fileName="resume.pdf"
@@ -244,11 +251,19 @@ function Builder() {
         <button className="clear-btn" onClick={clearData}>🗑 Clear</button>
       </div>
 
-      <div className="preview">
+      {/* ── PREVIEW ── */}
+      <div className={`preview${mobileView === 'form' ? ' mobile-hidden' : ''}`}>
+
+        {/* Mobile-only: back to form button */}
+        <button className="mobile-back-btn" onClick={() => setMobileView('form')}>
+          ← Back to Edit
+        </button>
+
         <div className={`preview-sheet ${animating ? '' : 'template-fade'}`}>
           <ActiveComponent data={{ ...formData, photo, accentColor }} />
         </div>
       </div>
+
     </div>
   );
 }

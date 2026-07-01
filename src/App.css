@@ -79,6 +79,7 @@
   outline: none;
   transition: all 0.3s ease;
   font-family: 'Inter', sans-serif;
+  width: 100%;
 }
 
 .form input:focus,
@@ -278,6 +279,15 @@
   transform: translateY(-2px);
 }
 
+/* Mobile-only buttons — hidden on desktop */
+.mobile-preview-btn {
+  display: none;
+}
+
+.mobile-back-btn {
+  display: none;
+}
+
 .download-btn {
   margin-top: 16px;
   padding: 13px;
@@ -299,24 +309,6 @@
 }
 
 .download-btn:active { transform: translateY(0); }
-
-.download-btn.loading {
-  cursor: not-allowed;
-  opacity: 0.85;
-  transform: none;
-  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
-  animation: btnPulse 1.2s ease-in-out infinite;
-}
-
-.download-btn.loading:hover {
-  transform: none;
-  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
-}
-
-@keyframes btnPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3); }
-  50% { box-shadow: 0 4px 30px rgba(108, 99, 255, 0.65), 0 0 0 4px rgba(108, 99, 255, 0.12); }
-}
 
 .clear-btn {
   padding: 10px;
@@ -377,4 +369,136 @@
 @keyframes slideIn {
   0% { opacity: 0; transform: translateX(50px); }
   100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Mobile styles ── */
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  /* mobile-hidden hides a panel when the other is active */
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  /* Form takes full width, leaves room for fixed download bar */
+  .form {
+    width: 100%;
+    border-right: none;
+    border-bottom: none;
+    padding: 24px 16px 88px;
+    animation: none;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  /* Stack template buttons in 2-column grid */
+  .template-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .template-btn {
+    flex: none;
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  /* "Preview Resume" button — visible only on mobile */
+  .mobile-preview-btn {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    border: 1px solid #6c63ff;
+    border-radius: 10px;
+    color: #6c63ff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin-top: 4px;
+    text-align: center;
+    transition: all 0.25s ease;
+  }
+
+  .mobile-preview-btn:active {
+    background: rgba(108, 99, 255, 0.1);
+  }
+
+  /* Download button fixed at bottom of viewport */
+  .download-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0;
+    padding: 16px;
+    font-size: 15px;
+    z-index: 200;
+    box-shadow: 0 -4px 20px rgba(108, 99, 255, 0.25);
+  }
+
+  .download-btn:hover {
+    transform: none;
+  }
+
+  /* Hide clear button on mobile to keep UI clean */
+  .clear-btn {
+    display: none;
+  }
+
+  /* Preview is a fullscreen overlay when active */
+  .preview {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    padding: 60px 12px 80px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    animation: none;
+  }
+
+  .preview-sheet {
+    width: 100%;
+    min-width: 0;
+    box-shadow: none;
+    border-radius: 4px;
+    animation: none;
+  }
+
+  /* "← Back to Edit" button — visible only on mobile inside preview overlay */
+  .mobile-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: #0f0f13;
+    border: none;
+    border-bottom: 1px solid #1e1e2e;
+    color: #a0a0c0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    padding: 0 20px;
+    z-index: 150;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-back-btn:active {
+    color: #6c63ff;
+  }
 }
