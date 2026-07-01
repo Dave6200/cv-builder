@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import './App.css';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import TemplateModern from './TemplateModern';
 import TemplateMinimal from './TemplateMinimal';
 import TemplateClassic from './TemplateClassic';
 import TemplateCreative from './TemplateCreative';
 import TemplateTech from './TemplateTech';
 import TemplateElegant from './TemplateElegant';
+import TemplatePremium from './TemplatePremium';
+import PDFDocument from './PDFDocument';
 import Splash from './Splash';
 import Landing from './Landing';
 
@@ -19,6 +20,7 @@ const templates = {
   creative: { name: '◈ Creative',  component: TemplateCreative },
   tech:     { name: '</> Tech',     component: TemplateTech },
   elegant:  { name: '✧ Elegant',   component: TemplateElegant },
+  premium:  { name: '★ Premium',   component: TemplatePremium },
 };
 
 const ACCENT_COLORS = ['#6c63ff', '#e94560', '#00b4d8', '#06d6a0', '#ff6b4a', '#f4c430'];
@@ -59,7 +61,6 @@ function Builder() {
 
   const [animating, setAnimating] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('cv-data', JSON.stringify(formData));
@@ -97,23 +98,9 @@ function Builder() {
     }
   };
 
-  const downloadPDF = () => {
-    if (pdfLoading) return;
-    setPdfLoading(true);
-    const sheet = document.querySelector('.preview-sheet');
-    html2canvas(sheet, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const width = pdf.internal.pageSize.getWidth();
-      const height = pdf.internal.pageSize.getHeight();
-      pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-      pdf.save('resume.pdf');
-      setPdfLoading(false);
-    });
-  };
-
   const completion = calcCompletion(formData);
   const ActiveComponent = templates[activeTemplate].component;
+  const pdfData = { ...formData, photo, accentColor };
 
   return (
     <div className="container">
@@ -245,13 +232,15 @@ function Builder() {
         <div className="section-title">Skills</div>
         <input name="skills" placeholder="React, JavaScript, CSS..." onChange={handleChange} value={formData.skills} />
 
-        <button
-          className={`download-btn${pdfLoading ? ' loading' : ''}`}
-          onClick={downloadPDF}
-          disabled={pdfLoading}
+        <PDFDownloadLink
+          document={<PDFDocument data={pdfData} />}
+          fileName="resume.pdf"
+          className="download-btn"
+          style={{ textDecoration: 'none', textAlign: 'center', display: 'block' }}
         >
-          {pdfLoading ? '⏳ Generating...' : '⬇ Download PDF'}
-        </button>
+          {({ loading }) => loading ? '⏳ Generating...' : '⬇ Download PDF'}
+        </PDFDownloadLink>
+
         <button className="clear-btn" onClick={clearData}>🗑 Clear</button>
       </div>
 
